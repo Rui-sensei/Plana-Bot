@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: randombot
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node index.js
+    envVars:
+      - key: TOKEN
+        sync: false

@@ -1,0 +1,102 @@
+[
+  {
+    "question": "What is the name of the academic city-state where Blue Archive takes place?",
+    "answer": "Kivotos",
+    "choices": ["Kivotos", "Gehenna", "Schale", "Millennium"]
+  },
+  {
+    "question": "Who is the player character referred to as in Blue Archive?",
+    "answer": "Sensei",
+    "choices": ["Sensei", "Commander", "Director", "President"]
+  },
+  {
+    "question": "What organization does Sensei work for?",
+    "answer": "Schale",
+    "choices": ["Schale", "Gehenna", "SRT", "Pater"]
+  },
+  {
+    "question": "Which school is known for its advanced technology and science focus?",
+    "answer": "Millennium",
+    "choices": ["Millennium", "Trinity", "Gehenna", "Abydos"]
+  },
+  {
+    "question": "Which school is associated with a religious and noble atmosphere?",
+    "answer": "Trinity",
+    "choices": ["Trinity", "Millennium", "Gehenna", "Shanhaijing"]
+  },
+  {
+    "question": "Which school is known for its delinquents and chaotic nature?",
+    "answer": "Gehenna",
+    "choices": ["Gehenna", "Trinity", "Abydos", "Valkyrie"]
+  },
+  {
+    "question": "What is the name of Plana's AI counterpart with a more cheerful personality?",
+    "answer": "Arona",
+    "choices": ["Arona", "Karin", "Noa", "Aris"]
+  },
+  {
+    "question": "Plana is the AI of which system?",
+    "answer": "Black Tortoise",
+    "choices": ["Black Tortoise", "Blue Archive", "Schale", "Shittim Chest"]
+  },
+  {
+    "question": "What is Aru's self-proclaimed title?",
+    "answer": "Boss of Problem Solver 68",
+    "choices": ["Boss of Problem Solver 68", "Head Prefect", "Student Council President", "Club Leader"]
+  },
+  {
+    "question": "Which school does Hoshino belong to?",
+    "answer": "Abydos",
+    "choices": ["Abydos", "Gehenna", "Trinity", "Millennium"]
+  },
+  {
+    "question": "What is Hina's role in Gehenna Academy?",
+    "answer": "Head Prefect",
+    "choices": ["Head Prefect", "Student Council President", "Club President", "Task Force Leader"]
+  },
+  {
+    "question": "Which group does Hifumi belong to in Trinity?",
+    "answer": "Make-Up Work Club",
+    "choices": ["Make-Up Work Club", "Tea Party", "Prefect Team", "Seminar"]
+  },
+  {
+    "question": "What are the three factions within Trinity General School?",
+    "answer": "Pater, Filius, and Sanctus",
+    "choices": ["Pater, Filius, and Sanctus", "Seminar, SRT, and Veritas", "Tea Party, Prefect, and Council", "Kohshinjo, Onyx, and Pater"]
+  },
+  {
+    "question": "What is the name of Trinity's student council?",
+    "answer": "Tea Party",
+    "choices": ["Tea Party", "Prefect Team", "General Council", "Sanctus"]
+  },
+  {
+    "question": "Which developer made Blue Archive?",
+    "answer": "MX Studio under NEXON GAMES",
+    "choices": ["MX Studio under NEXON GAMES", "miHoYo", "Yostar", "Cygames"]
+  },
+  {
+    "question": "Who published Blue Archive in Japan?",
+    "answer": "Yostar",
+    "choices": ["Yostar", "NEXON", "Bandai Namco", "Square Enix"]
+  },
+  {
+    "question": "When was Blue Archive first released in Japan?",
+    "answer": "February 4, 2021",
+    "choices": ["February 4, 2021", "March 12, 2020", "January 1, 2022", "November 8, 2021"]
+  },
+  {
+    "question": "What unique feature do all students in Kivotos share?",
+    "answer": "Halos",
+    "choices": ["Halos", "Wings", "Tails", "Horns"]
+  },
+  {
+    "question": "What is Haruna's role in Gehenna?",
+    "answer": "President of the Gourmet Research Society",
+    "choices": ["President of the Gourmet Research Society", "Head Prefect", "Student Council President", "Club Treasurer"]
+  },
+  {
+    "question": "What is Eimi's affiliation in Millennium?",
+    "answer": "Super Phenomenon Task Force",
+    "choices": ["Super Phenomenon Task Force", "Seminar", "SRT", "Veritas"]
+  }
+]

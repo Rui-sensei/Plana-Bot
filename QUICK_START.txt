@@ -1,0 +1,71 @@
+════════════════════════════════════════════════════════════════════
+  🤖 DEPLOY YOUR BOT TO RENDER.COM - QUICK REFERENCE
+════════════════════════════════════════════════════════════════════
+
+📦 STEP 1: INSTALL GIT (if needed)
+→ Download: https://git-scm.com/download/win
+→ Install with defaults → Restart computer
+
+════════════════════════════════════════════════════════════════════
+
+📤 STEP 2: PUSH TO GITHUB
+
+1. Create repo on GitHub: https://github.com/new
+   (Don't initialize with README)
+
+2. Open terminal in this folder and run:
+
+   git init
+   git add .
+   git commit -m "Deploy to Render"
+   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+   git branch -M main
+   git push -u origin main
+
+   (Replace YOUR_USERNAME and YOUR_REPO with your actual values)
+
+════════════════════════════════════════════════════════════════════
+
+🚀 STEP 3: DEPLOY ON RENDER
+
+1. Sign up: https://render.com (use GitHub login)
+
+2. Click "New +" → "Web Service"
+
+3. Connect your GitHub repo
+
+4. Settings:
+   ✓ Environment: Node
+   ✓ Build: npm install
+   ✓ Start: npm start
+   ✓ Plan: Free
+
+5. Environment Variables:
+   Add: TOKEN = (your Discord bot token from .env file)
+
+6. Click "Create Web Service"
+
+7. Wait 2-5 minutes → Bot should be online! 🎉
+
+════════════════════════════════════════════════════════════════════
+
+⚠️ FREE TIER WARNING
+
+Render free tier SLEEPS after 15 min of inactivity!
+
+To keep bot awake:
+→ Use UptimeRobot.com (free): ping every 5 min
+→ OR upgrade to paid ($7/month)
+
+════════════════════════════════════════════════════════════════════
+
+📝 YOUR BOT TOKEN (you'll need this):
+→ Check your .env file in this folder
+
+════════════════════════════════════════════════════════════════════
+
+❓ NEED DETAILED HELP?
+→ Read SETUP_GUIDE.md in this folder
+→ Read DEPLOYMENT.md for troubleshooting
+
+════════════════════════════════════════════════════════════════════
