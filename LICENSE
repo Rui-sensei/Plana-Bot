@@ -1,0 +1,52 @@
+Custom License
+
+Copyright (c) 2026 Rui-sensei
+
+## Terms of Use
+
+### ✅ ALLOWED:
+- View and study the source code
+- Fork this repository for learning purposes
+- Use code snippets in your own projects (with attribution)
+- Contribute improvements via pull requests
+- Run your own private instance for personal use
+
+### ❌ NOT ALLOWED:
+- Host this bot publicly as a competing Discord bot service
+- Claim this bot or code as your own creation
+- Remove or modify copyright notices
+- Use the "Plana Bot" name or branding for your own bot
+- Redistribute this bot as a ready-to-use service
+
+## Specific Restrictions
+
+1. **The Bot Instance**: The official "Plana Bot" hosted by Rui-sensei is the ONLY authorized public instance. You may NOT:
+   - Host a public clone of this bot
+   - Invite your instance to multiple servers
+   - Advertise your instance as "Plana Bot" or similar
+
+2. **Personal Use Only**: You may run this code for:
+   - Personal servers (your own Discord servers)
+   - Learning and educational purposes
+   - Testing and development
+
+3. **Commercial Use**: Commercial use requires written permission from Rui-sensei.
+
+4. **Attribution Required**: If you use any part of this code, you must:
+   - Credit Rui-sensei as the original author
+   - Link back to this repository
+   - Keep all copyright notices intact
+
+## Liability
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+**TL;DR**: Feel free to learn from and use parts of this code, but don't host a competing public bot. The official Plana Bot is owned and operated exclusively by Rui-sensei.

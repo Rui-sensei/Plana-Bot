@@ -1,4 +1,10 @@
-# 🔵 Plana Discord Bot
+h# 🔵 Plana Discord Bot
+
+> **⚠️ IMPORTANT NOTICE:**  
+> This repository is **source-available for educational purposes only**.  
+> The official "Plana Bot" is owned and operated exclusively by **Rui-sensei**.  
+> You may study the code and run it privately, but **hosting a public competing bot is not permitted**.  
+> See [LICENSE](LICENSE) for full terms.
 
 A feature-rich Discord bot based on **Plana** from Blue Archive, with interactive commands, trivia, gacha mechanics, birthday tracking, and dead chat detection.
 
@@ -6,6 +12,8 @@ A feature-rich Discord bot based on **Plana** from Blue Archive, with interactiv
 ![Node.js](https://img.shields.io/badge/Node.js-18+-green?style=for-the-badge&logo=node.js)
 ![Discord.js](https://img.shields.io/badge/Discord.js-v14-blue?style=for-the-badge&logo=discord)
 ![Status](https://img.shields.io/badge/Status-Online-success?style=for-the-badge)
+![License](https://img.shields.io/badge/License-Custom-orange?style=for-the-badge)
+![Source Available](https://img.shields.io/badge/Source-Available-blueviolet?style=for-the-badge)
 
 ---
 
@@ -208,10 +216,35 @@ Stores user birthdays and announcement channels
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to:
-- Report bugs
-- Suggest new features
-- Submit pull requests
+This is a **source-available** project! While the official bot instance is exclusive to Rui-sensei, contributions to improve the code are welcome! 💜
+
+### Ways to Contribute:
+- 🐛 **Report bugs** - Help us find and fix issues
+- 💡 **Suggest features** - Share your ideas
+- 🔧 **Submit pull requests** - Add new features or fix bugs
+- 📖 **Improve documentation** - Help others understand the code
+- ⭐ **Star the repository** - Show your support!
+
+**Please read [CONTRIBUTING.md](CONTRIBUTING.md) before contributing.**
+
+### Quick Start for Contributors:
+```bash
+# Fork and clone the repo
+git clone https://github.com/YOUR_USERNAME/Rui.git
+cd Rui
+
+# Install dependencies
+npm install
+
+# Copy environment template
+cp .env.example .env
+# Edit .env with your bot token
+
+# Run the bot locally for testing
+npm start
+```
+
+**Note:** Contributions are for improving the codebase. The official public bot instance remains exclusive to Rui-sensei.
 
 ---
 
@@ -223,9 +256,31 @@ Contributions are welcome! Feel free to:
 
 ---
 
+## 📜 License & Usage Rights
+
+This project is licensed under a **Custom Source-Available License** - see the [LICENSE](LICENSE) file for full details.
+
+### ✅ What You CAN Do:
+- View and study the code
+- Use code snippets in your own projects (with credit)
+- Run a private instance for your personal servers
+- Fork for learning purposes
+- Contribute improvements via pull requests
+
+### ❌ What You CANNOT Do:
+- Host a public competing bot service
+- Use the "Plana Bot" name/branding
+- Claim this code as your own
+- Redistribute as a ready-to-use service
+- Remove copyright notices
+
+**The official "Plana Bot" is owned and operated exclusively by Rui-sensei. Only ONE authorized public instance exists.**
+
+For commercial use or special permissions, please contact the owner.
+
 ## ⚠️ Disclaimer
 
-This is a fan-made bot. Blue Archive and all related characters are property of Nexon Games.
+This is a fan-made bot. Blue Archive and all related characters are property of Nexon Games. This project is not affiliated with or endorsed by Nexon.
 
 ---
 
