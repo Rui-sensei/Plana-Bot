@@ -22,7 +22,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - !help command - Interactive help menu with buttons
 - Slash command support for all major features
 - Configuration system for dead chat, mentions, and more
-- Health check endpoint for hosting platforms
 
 #### Features
 - Mention spam protection (disappear mechanic)
@@ -35,7 +34,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Technical
 - Discord.js v14
 - Node.js 18+ support
-- Render.com deployment ready
 - Environment variable configuration
 - Auto-save configuration system
 
@@ -74,3 +72,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ---
 
 [1.0.0]: https://github.com/Rui-sensei/Rui/releases/tag/v1.0.0
+
