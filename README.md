@@ -102,84 +102,6 @@ A feature-rich Discord bot based on **Plana** from Blue Archive, with interactiv
 - 30-second timer with emoji reactions
 - Multiple choice format (A, B, C, D)
 
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-- Node.js 18 or higher
-- Discord Bot Token ([Discord Developer Portal](https://discord.com/developers/applications))
-- A Discord server with bot permissions
-
-### Installation
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Rui-sensei/Rui.git
-   cd Rui
-   ```
-
-2. **Install dependencies:**
-   ```bash
-   npm install
-   ```
-
-3. **Create `.env` file:**
-   ```env
-   TOKEN=your_discord_bot_token_here
-   APP_ID=your_application_id_here
-   ```
-
-4. **Run the bot:**
-   ```bash
-   npm start
-   ```
-
----
-
-## 🌐 Deployment (24/7 Hosting)
-
-This bot is configured for **Render.com** deployment.
-
-### Quick Deploy to Render:
-
-1. Push code to GitHub ✅ (You're already here!)
-2. Sign up at [Render.com](https://render.com)
-3. Create new Web Service → Connect this repository
-4. Configure:
-   - **Build Command:** `npm install`
-   - **Start Command:** `npm start`
-   - **Environment Variable:** `TOKEN` = your bot token
-5. Deploy! 🚀
-
-**Note:** Free tier sleeps after 15 min. Use [UptimeRobot](https://uptimerobot.com) to ping `https://your-app.onrender.com/health` every 5 minutes.
-
----
-
-## 📁 Project Structure
-
-```
-randombot/
-├── commands/          # Command modules
-│   ├── birthday.js    # Birthday tracking system
-│   ├── help.js        # Help menu with buttons
-│   ├── interactions.js # Plana interaction commands
-│   ├── ship.js        # Ship compatibility calculator
-│   ├── trivia.js      # Blue Archive trivia
-│   └── slashCommands.js # Slash command registration
-├── handlers/          # Event handlers
-│   ├── messages.js    # Text message handler
-│   └── interactions.js # Slash command & button handler
-├── audio/             # Audio files for responses
-├── images/            # Image files for embeds
-├── data/              # JSON data files
-├── config.js          # Bot configuration management
-├── index.js           # Main bot file
-└── package.json       # Dependencies
-```
-
----
-
 ## 🔧 Configuration Files
 
 ### `config.js`
@@ -244,4 +166,4 @@ Having issues? Check the logs or open an issue on GitHub!
 *"...Plana is ready to assist. Don't make her repeat herself, Sensei."*
 
 </div>
-Someone who cry
+
