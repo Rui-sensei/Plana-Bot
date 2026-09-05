@@ -56,7 +56,8 @@ A feature-rich Discord bot based on **Plana** from Blue Archive, with interactiv
 | `!plana stop` | Plana stops you |
 | `!plana pinch` | Pinch Plana's cheeks |
 | `!plana cry` | Plana cries |
-| `!plana 8ball [question]` | Ask Plana a question | 
+| `!plana 8ball [question]` | Ask Plana a question |
+| `!plana profile [@user]` | View user profile with birthday |
 
 ### 🎂 Birthday System
 
@@ -65,6 +66,8 @@ A feature-rich Discord bot based on **Plana** from Blue Archive, with interactiv
 | `/birthday set [month] [day]` | Set your birthday |
 | `/birthday remove` | Remove your birthday |
 | `/birthday check` | Check your saved birthday |
+| `/profile [@user]` | View user profile with birthday (leave empty for yourself) |
+| `!plana profile [@user]` | View user profile with birthday (text command) |
 | `/plana birthday config [channel]` | Set birthday announcement channel (Admin) |
 
 ### ⚙️ Configuration (Admin Only)
