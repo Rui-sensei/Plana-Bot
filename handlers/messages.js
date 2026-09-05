@@ -40,7 +40,8 @@ module.exports = function registerMessageHandler(client) {
     }
 
     // 🔵 PLANA MENTION
-    if (message.mentions.has(client.user.id)) {
+    // Only trigger on direct mentions, not @everyone, @here, or replies
+    if (message.mentions.users.has(client.user.id) && !message.mentions.everyone && message.type === 0) {
       const userId = message.author.id;
 
       if (mentionCooldowns.has(userId)) {
