@@ -149,11 +149,6 @@ Contributions are welcome! Feel free to:
 
 This is a fan-made bot. Blue Archive and all related characters are property of Nexon Games.
 
----
-
-## 📞 Support
-
-Having issues? Check the logs or open an issue on GitHub!
 
 ---
 
