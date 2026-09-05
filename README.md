@@ -128,8 +128,7 @@ Stores user birthdays and announcement channels
 
 ---
 
-## 🤝 Contributing
-
+## 
 Contributions are welcome! Feel free to:
 - Report bugs
 - Suggest new features
@@ -149,6 +148,7 @@ Contributions are welcome! Feel free to:
 
 This is a fan-made bot. Blue Archive and all related characters are property of Nexon Games.
 
+Also I got some help with some friends so don't expect too much from me~
 
 ---
 
