@@ -4,7 +4,7 @@ const cfg = require('../config');
 const { sendPlanaInteraction, build8BallEmbed } = require('../commands/interactions');
 const { buildHelpEmbed, buildHelpRow } = require('../commands/help');
 const { runTrivia } = require('../commands/trivia');
-const { setBirthday, removeBirthday, getBirthday, setBirthdayChannel, MONTH_NAMES, DAYS_IN_MONTH } = require('../commands/birthday');
+const { setBirthday, removeBirthday, getBirthday, setBirthdayChannel, buildProfileEmbed, MONTH_NAMES, DAYS_IN_MONTH } = require('../commands/birthday');
 
 const IMAGE_BASE = path.join(__dirname, '..', 'images');
 const COLOR_PATH = path.join(IMAGE_BASE, "Plana Colors");
@@ -66,6 +66,16 @@ module.exports = function registerInteractionHandler(client) {
     // 📖 /help
     if (interaction.commandName === "help") {
       return interaction.reply({ embeds: [buildHelpEmbed("main")], components: [buildHelpRow("main")] });
+    }
+
+    // 👤 /profile
+    if (interaction.commandName === "profile") {
+      const targetUser = interaction.options.getUser('user') || interaction.user;
+      const member = await interaction.guild.members.fetch(targetUser.id).catch(() => null);
+      if (!member) {
+        return interaction.reply({ content: "❌ Could not find that user in this server.", flags: 64 });
+      }
+      return interaction.reply({ embeds: [buildProfileEmbed(member)] });
     }
 
     // 🎲 /random

@@ -44,6 +44,29 @@ function getBirthday(userId) {
   return birthdays[userId] || null;
 }
 
+function buildProfileEmbed(member) {
+  const birthday = getBirthday(member.id);
+  const embed = new EmbedBuilder()
+    .setTitle(`${member.displayName || member.user.username}'s Profile`)
+    .setThumbnail(member.user.displayAvatarURL())
+    .setColor(0x8A2BE2)
+    .addFields(
+      { name: '👤 Username', value: member.user.username, inline: true },
+      { name: '🆔 User ID', value: member.id, inline: true },
+      { name: '📅 Joined Server', value: member.joinedAt ? `<t:${Math.floor(member.joinedAt.getTime() / 1000)}:R>` : 'Unknown', inline: true }
+    );
+
+  if (birthday) {
+    const birthdayStr = `${MONTH_NAMES[birthday.month]} ${birthday.day}`;
+    embed.addFields({ name: '🎂 Birthday', value: birthdayStr, inline: true });
+  } else {
+    embed.addFields({ name: '🎂 Birthday', value: 'Not set', inline: true });
+  }
+
+  embed.setFooter({ text: 'Set your birthday with /birthday set' });
+  return embed;
+}
+
 function setBirthdayChannel(guildId, channelId) {
   birthdayChannels[guildId] = channelId;
   saveBirthdays();
@@ -126,6 +149,7 @@ module.exports = {
   setBirthdayChannel,
   scheduleBirthdayCheck,
   buildBirthdayEmbed,
+  buildProfileEmbed,
   MONTH_NAMES,
   DAYS_IN_MONTH,
   BIRTHDAY_IMAGE

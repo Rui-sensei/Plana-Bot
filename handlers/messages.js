@@ -1,10 +1,11 @@
 const { EmbedBuilder } = require('discord.js');
 const path = require('path');
 const cfg = require('../config');
-const { sendPlanaInteraction, build8BallEmbed } = require('../commands/interactions');
+const { buildPlanaInteraction, build8BallEmbed } = require('../commands/interactions');
 const { buildHelpEmbed, buildHelpRow } = require('../commands/help');
 const { runTrivia } = require('../commands/trivia');
 const { getShipPercentage, buildShipEmbed } = require('../commands/ship');
+const { buildProfileEmbed } = require('../commands/birthday');
 const { saveConfigDebounced } = cfg;
 
 const PREFIX = "!";
@@ -149,10 +150,15 @@ module.exports = function registerMessageHandler(client) {
         if (!question) return message.reply("Ask Plana a question! e.g. `!plana 8ball Will I win today?`");
         return message.channel.send({ embeds: [build8BallEmbed(question)] });
       }
+      if (sub === "profile") {
+        const mentions = message.mentions.members;
+        const target = mentions && mentions.size > 0 ? mentions.first() : message.member;
+        return message.channel.send({ embeds: [buildProfileEmbed(target)] });
+      }
       if (sub && require('../commands/interactions').planaInteractions[sub]) {
         return sendPlanaInteraction(message.channel, sub);
       }
-      return message.reply("Unknown Plana action. Try: touch, blush, kiss, lick, spin, pat, stop, pinch, cry, 8ball");
+      return message.reply("Unknown Plana action. Try: touch, blush, kiss, lick, spin, pat, stop, pinch, cry, 8ball, profile");
     }
 
     // 📖 HELP

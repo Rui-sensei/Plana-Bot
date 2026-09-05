@@ -20,6 +20,12 @@ const commands = [
     ),
   new SlashCommandBuilder().setName('help').setDescription('Plana help menu'),
   new SlashCommandBuilder()
+    .setName('profile')
+    .setDescription('View user profile with birthday info')
+    .addUserOption(opt =>
+      opt.setName('user').setDescription('User to view profile (leave empty for yourself)').setRequired(false)
+    ),
+  new SlashCommandBuilder()
     .setName('birthday')
     .setDescription('Birthday tracker')
     .addSubcommand(sub =>
