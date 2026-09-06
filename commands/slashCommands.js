@@ -113,10 +113,11 @@ const commands = [
 async function registerCommands() {
   const rest = new REST({ version: '10' }).setToken(TOKEN);
   try {
-    await rest.put(Routes.applicationCommands(APP_ID), { body: commands });
-    console.log("Slash commands registered.");
+    console.log(`Registering ${commands.length} slash commands...`);
+    const data = await rest.put(Routes.applicationCommands(APP_ID), { body: commands });
+    console.log(`✅ Successfully registered ${data.length} slash commands:`, data.map(c => c.name).join(', '));
   } catch (err) {
-    console.error("Failed to register slash commands:", err);
+    console.error("❌ Failed to register slash commands:", err);
   }
 }
 
