@@ -5,6 +5,9 @@ services:
     plan: free
     buildCommand: npm install
     startCommand: node index.js
+    healthCheckPath: /health
     envVars:
       - key: TOKEN
+        sync: false
+      - key: APP_ID
         sync: false
