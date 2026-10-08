@@ -3,7 +3,8 @@ require('dotenv').config();
 const { Client, GatewayIntentBits } = require('discord.js');
 const { registerCommands }           = require('./commands/slashCommands');
 const { loadStudentData }            = require('./commands/trivia');
-const { scheduleBirthdayCheck }      = require('./commands/birthday');
+const { initBirthdays, scheduleBirthdayCheck } = require('./commands/birthday');
+const { connectDatabase }            = require('./database');
 const registerMessageHandler         = require('./handlers/messages');
 const registerInteractionHandler     = require('./handlers/interactions');
 
@@ -32,8 +33,13 @@ const client = new Client({
   ]
 });
 
-client.once('clientReady', () => {
+client.once('clientReady', async () => {
   console.log(`Logged in as ${client.user.tag}`);
+  
+  // Connect to database and initialize birthdays
+  await connectDatabase();
+  await initBirthdays();
+  
   scheduleBirthdayCheck(client);
 });
 

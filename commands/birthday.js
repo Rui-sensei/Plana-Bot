@@ -1,27 +1,130 @@
 const { EmbedBuilder } = require('discord.js');
 const fs   = require('fs');
 const path = require('path');
+const { getDatabase } = require('../database');
 
 const BIRTHDAY_FILE = path.join(__dirname, '..', 'data', 'birthdays.json');
 
-// { userId: { month, day } }
+// In-memory cache
 let birthdays = {};
-// guildId -> channelId
 let birthdayChannels = {};
+let useDatabase = false;
 
-function loadBirthdays() {
-  if (fs.existsSync(BIRTHDAY_FILE)) {
-    const raw = JSON.parse(fs.readFileSync(BIRTHDAY_FILE, 'utf8'));
-    birthdays        = raw.birthdays        || {};
-    birthdayChannels = raw.birthdayChannels || {};
+async function initBirthdays() {
+  const db = getDatabase();
+  
+  if (db) {
+    useDatabase = true;
+    console.log('✅ Using MongoDB for birthday storage');
+    await loadFromDatabase();
+  } else {
+    useDatabase = false;
+    console.log('⚠️  Using local file for birthday storage (data will be lost on restart)');
+    loadFromFile();
   }
 }
 
-function saveBirthdays() {
-  fs.writeFileSync(BIRTHDAY_FILE, JSON.stringify({ birthdays, birthdayChannels }, null, 2));
+function loadFromFile() {
+  if (fs.existsSync(BIRTHDAY_FILE)) {
+    try {
+      const raw = JSON.parse(fs.readFileSync(BIRTHDAY_FILE, 'utf8'));
+      birthdays        = raw.birthdays        || {};
+      birthdayChannels = raw.birthdayChannels || {};
+    } catch (err) {
+      console.error('Failed to load birthdays from file:', err.message);
+    }
+  }
 }
 
-loadBirthdays();
+function saveToFile() {
+  try {
+    const dir = path.dirname(BIRTHDAY_FILE);
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(BIRTHDAY_FILE, JSON.stringify({ birthdays, birthdayChannels }, null, 2));
+  } catch (err) {
+    console.error('Failed to save birthdays to file:', err.message);
+  }
+}
+
+async function loadFromDatabase() {
+  const db = getDatabase();
+  if (!db) return;
+
+  try {
+    const birthdaysCol = db.collection('birthdays');
+    const channelsCol = db.collection('birthday_channels');
+
+    // Load birthdays
+    const birthdayDocs = await birthdaysCol.find({}).toArray();
+    birthdays = {};
+    birthdayDocs.forEach(doc => {
+      birthdays[doc.userId] = { month: doc.month, day: doc.day };
+    });
+
+    // Load channels
+    const channelDocs = await channelsCol.find({}).toArray();
+    birthdayChannels = {};
+    channelDocs.forEach(doc => {
+      birthdayChannels[doc.guildId] = doc.channelId;
+    });
+
+    console.log(`📊 Loaded ${birthdayDocs.length} birthdays and ${channelDocs.length} channels from database`);
+  } catch (err) {
+    console.error('Failed to load from database:', err.message);
+  }
+}
+
+async function saveBirthdays() {
+  if (useDatabase) {
+    await saveToDatabase();
+  } else {
+    saveToFile();
+  }
+}
+
+async function saveToDatabase() {
+  const db = getDatabase();
+  if (!db) {
+    saveToFile(); // Fallback
+    return;
+  }
+
+  try {
+    const birthdaysCol = db.collection('birthdays');
+    const channelsCol = db.collection('birthday_channels');
+
+    // Save all birthdays (upsert)
+    const birthdayOps = Object.entries(birthdays).map(([userId, data]) => ({
+      updateOne: {
+        filter: { userId },
+        update: { $set: { userId, month: data.month, day: data.day } },
+        upsert: true
+      }
+    }));
+
+    if (birthdayOps.length > 0) {
+      await birthdaysCol.bulkWrite(birthdayOps);
+    }
+
+    // Save all channels (upsert)
+    const channelOps = Object.entries(birthdayChannels).map(([guildId, channelId]) => ({
+      updateOne: {
+        filter: { guildId },
+        update: { $set: { guildId, channelId } },
+        upsert: true
+      }
+    }));
+
+    if (channelOps.length > 0) {
+      await channelsCol.bulkWrite(channelOps);
+    }
+  } catch (err) {
+    console.error('Failed to save to database:', err.message);
+    saveToFile(); // Fallback
+  }
+}
 
 const MONTH_NAMES = [
   '', 'January', 'February', 'March', 'April', 'May', 'June',
@@ -30,14 +133,26 @@ const MONTH_NAMES = [
 
 const DAYS_IN_MONTH = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-function setBirthday(userId, month, day) {
+async function setBirthday(userId, month, day) {
   birthdays[userId] = { month, day };
-  saveBirthdays();
+  await saveBirthdays();
 }
 
-function removeBirthday(userId) {
+async function removeBirthday(userId) {
   delete birthdays[userId];
-  saveBirthdays();
+  
+  if (useDatabase) {
+    const db = getDatabase();
+    if (db) {
+      try {
+        await db.collection('birthdays').deleteOne({ userId });
+      } catch (err) {
+        console.error('Failed to delete birthday from database:', err.message);
+      }
+    }
+  }
+  
+  await saveBirthdays();
 }
 
 function getBirthday(userId) {
@@ -67,9 +182,9 @@ function buildProfileEmbed(member) {
   return embed;
 }
 
-function setBirthdayChannel(guildId, channelId) {
+async function setBirthdayChannel(guildId, channelId) {
   birthdayChannels[guildId] = channelId;
-  saveBirthdays();
+  await saveBirthdays();
 }
 
 function getTodayBirthdays() {
@@ -143,6 +258,7 @@ function scheduleBirthdayCheck(client) {
 }
 
 module.exports = {
+  initBirthdays,
   setBirthday,
   removeBirthday,
   getBirthday,

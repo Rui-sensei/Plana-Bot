@@ -41,7 +41,7 @@ module.exports = function registerInteractionHandler(client) {
           return interaction.reply({ content: `❌ ${MONTH_NAMES[month]} doesn't have ${day} days.`, flags: 64 });
         }
 
-        setBirthday(interaction.user.id, month, day);
+        await setBirthday(interaction.user.id, month, day);
         return interaction.reply({
           content: `✅ Birthday set to **${MONTH_NAMES[month]} ${day}**. Plana will remember, Sensei. (˶˃ ᵕ ˂˶)`,
           flags: 64
@@ -49,7 +49,7 @@ module.exports = function registerInteractionHandler(client) {
       }
 
       if (sub === "remove") {
-        removeBirthday(interaction.user.id);
+        await removeBirthday(interaction.user.id);
         return interaction.reply({ content: "✅ Your birthday has been removed.", flags: 64 });
       }
 
@@ -152,7 +152,7 @@ module.exports = function registerInteractionHandler(client) {
       // ⚙️ /plana birthday config
       if (group === "birthday" && sub === "config") {
         const channel = interaction.options.getChannel('channel');
-        setBirthdayChannel(interaction.guild.id, channel.id);
+        await setBirthdayChannel(interaction.guild.id, channel.id);
         return interaction.reply({ content: `✅ Birthday announcements will be sent to <#${channel.id}>.`, flags: 64 });
       }
 
