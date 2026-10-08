@@ -20,7 +20,6 @@ async function connectDatabase() {
   try {
     console.log('🔄 Connecting to MongoDB...');
     client = new MongoClient(MONGODB_URI, {
-      useUnifiedTopology: true,
       serverSelectionTimeoutMS: 10000,
       socketTimeoutMS: 45000,
     });
