@@ -29,7 +29,7 @@ const commands = [
     .setName('birthday')
     .setDescription('Birthday tracker')
     .addSubcommand(sub =>
-      sub.setName('set').setDescription('Set your birthday')
+      sub.setName('set').setDescription('Set your birthday and enable announcements in this server')
         .addIntegerOption(opt =>
           opt.setName('month').setDescription('Month (1-12)').setRequired(true).setMinValue(1).setMaxValue(12)
         )
@@ -38,10 +38,16 @@ const commands = [
         )
     )
     .addSubcommand(sub =>
-      sub.setName('remove').setDescription('Remove your birthday')
+      sub.setName('enable').setDescription('Enable birthday announcements in this server')
     )
     .addSubcommand(sub =>
-      sub.setName('check').setDescription('Check your saved birthday')
+      sub.setName('disable').setDescription('Disable birthday announcements in this server')
+    )
+    .addSubcommand(sub =>
+      sub.setName('remove').setDescription('Remove your birthday globally')
+    )
+    .addSubcommand(sub =>
+      sub.setName('check').setDescription('Check your saved birthday and server status')
     ),
   new SlashCommandBuilder()
     .setName('plana')

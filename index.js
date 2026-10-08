@@ -5,6 +5,8 @@ const { registerCommands }           = require('./commands/slashCommands');
 const { loadStudentData }            = require('./commands/trivia');
 const { initBirthdays, scheduleBirthdayCheck } = require('./commands/birthday');
 const { connectDatabase }            = require('./database');
+const { connectSecondaryDatabase }   = require('./database-secondary');
+const { initPreferences }            = require('./preferences');
 const registerMessageHandler         = require('./handlers/messages');
 const registerInteractionHandler     = require('./handlers/interactions');
 
@@ -36,9 +38,13 @@ const client = new Client({
 client.once('clientReady', async () => {
   console.log(`Logged in as ${client.user.tag}`);
   
-  // Connect to database and initialize birthdays
+  // Connect to both databases
   await connectDatabase();
+  await connectSecondaryDatabase();
+  
+  // Initialize data
   await initBirthdays();
+  await initPreferences();
   
   scheduleBirthdayCheck(client);
 });

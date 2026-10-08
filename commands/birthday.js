@@ -215,6 +215,7 @@ function buildBirthdayEmbed(member) {
 
 // Called once a day — checks for birthdays and announces them
 async function checkBirthdays(client) {
+  const { isServerEnabled } = require('../preferences');
   const todayIds = getTodayBirthdays();
   if (todayIds.length === 0) return;
 
@@ -224,12 +225,21 @@ async function checkBirthdays(client) {
 
     for (const userId of todayIds) {
       try {
+        // Check if user has enabled announcements in this server
+        const enabled = await isServerEnabled(userId, guildId);
+        if (!enabled) {
+          console.log(`Skipping birthday announcement for ${userId} in ${guildId} (not enabled)`);
+          continue;
+        }
+
         const member = await channel.guild.members.fetch(userId).catch(() => null);
         if (!member) continue;
+        
         await channel.send({
           embeds: [buildBirthdayEmbed(member)],
           files: [BIRTHDAY_IMAGE]
         });
+        console.log(`✅ Birthday announced for ${userId} in ${guildId}`);
       } catch (err) {
         console.error(`Birthday announcement failed for ${userId}:`, err.message);
       }

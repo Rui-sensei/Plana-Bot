@@ -5,6 +5,7 @@ const { sendPlanaInteraction, build8BallEmbed } = require('../commands/interacti
 const { buildHelpEmbed, buildHelpRow } = require('../commands/help');
 const { runTrivia } = require('../commands/trivia');
 const { setBirthday, removeBirthday, getBirthday, setBirthdayChannel, buildProfileEmbed, MONTH_NAMES, DAYS_IN_MONTH } = require('../commands/birthday');
+const { setServerOptIn, isServerEnabled, removeUserOptIns, logAdminAction } = require('../preferences');
 
 const IMAGE_BASE = path.join(__dirname, '..', 'images');
 const COLOR_PATH = path.join(IMAGE_BASE, "Plana Colors");
@@ -42,22 +43,63 @@ module.exports = function registerInteractionHandler(client) {
         }
 
         await setBirthday(interaction.user.id, month, day);
+        
+        // Automatically enable for current server
+        await setServerOptIn(interaction.user.id, interaction.guild.id, true);
+        
         return interaction.reply({
-          content: `✅ Birthday set to **${MONTH_NAMES[month]} ${day}**. Plana will remember, Sensei. (˶˃ ᵕ ˂˶)`,
+          content: `✅ Birthday set to **${MONTH_NAMES[month]} ${day}** and enabled for this server!\n` +
+                   `Use \`/birthday enable\` in other servers to enable announcements there.`,
+          flags: 64
+        });
+      }
+
+      if (sub === "enable") {
+        const bd = getBirthday(interaction.user.id);
+        if (!bd) {
+          return interaction.reply({ 
+            content: "❌ You haven't set a birthday yet. Use `/birthday set` first.", 
+            flags: 64 
+          });
+        }
+
+        await setServerOptIn(interaction.user.id, interaction.guild.id, true);
+        return interaction.reply({
+          content: `✅ Birthday announcements **enabled** in this server!\n` +
+                   `Plana will announce your birthday (${MONTH_NAMES[bd.month]} ${bd.day}) here.`,
+          flags: 64
+        });
+      }
+
+      if (sub === "disable") {
+        await setServerOptIn(interaction.user.id, interaction.guild.id, false);
+        return interaction.reply({
+          content: "✅ Birthday announcements **disabled** in this server.\n" +
+                   "Use `/birthday enable` to re-enable them.",
           flags: 64
         });
       }
 
       if (sub === "remove") {
         await removeBirthday(interaction.user.id);
-        return interaction.reply({ content: "✅ Your birthday has been removed.", flags: 64 });
+        await removeUserOptIns(interaction.user.id);
+        return interaction.reply({ content: "✅ Your birthday has been removed from all servers.", flags: 64 });
       }
 
       if (sub === "check") {
         const bd = getBirthday(interaction.user.id);
-        if (!bd) return interaction.reply({ content: "You haven't set a birthday yet. Use `/birthday set`.", flags: 64 });
+        if (!bd) {
+          return interaction.reply({ content: "You haven't set a birthday yet. Use `/birthday set`.", flags: 64 });
+        }
+        
+        const enabled = await isServerEnabled(interaction.user.id, interaction.guild.id);
+        const statusEmoji = enabled ? "✅" : "❌";
+        const statusText = enabled ? "**Enabled**" : "**Disabled**";
+        
         return interaction.reply({
-          content: `🎂 Your birthday is set to **${MONTH_NAMES[bd.month]} ${bd.day}**.`,
+          content: `🎂 Your birthday: **${MONTH_NAMES[bd.month]} ${bd.day}**\n` +
+                   `${statusEmoji} Announcements in this server: ${statusText}\n\n` +
+                   (enabled ? "" : "Use `/birthday enable` to enable announcements here."),
           flags: 64
         });
       }
