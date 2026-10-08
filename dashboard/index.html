@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plana Bot Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <h1>🎂 Plana Bot Dashboard</h1>
+            <p>Enter password to access dashboard</p>
+            <input type="password" id="passwordInput" placeholder="Password" />
+            <button onclick="login()">Login</button>
+            <p id="loginError" class="error"></p>
+        </div>
+    </div>
+
+    <!-- Dashboard Screen -->
+    <div id="dashboardScreen" style="display: none;">
+        <header>
+            <h1>🎂 Plana Bot Dashboard</h1>
+            <button onclick="logout()" class="logout-btn">Logout</button>
+        </header>
+
+        <div class="container">
+            <!-- Status Cards -->
+            <div class="cards">
+                <div class="card">
+                    <h3>🗄️ Primary MongoDB</h3>
+                    <div id="primaryStatus">Loading...</div>
+                </div>
+
+                <div class="card">
+                    <h3>🗄️ Secondary MongoDB</h3>
+                    <div id="secondaryStatus">Loading...</div>
+                </div>
+
+                <div class="card">
+                    <h3>☁️ Render Status</h3>
+                    <div id="renderStatus">Loading...</div>
+                </div>
+
+                <div class="card">
+                    <h3>🎂 Birthdays</h3>
+                    <div id="birthdayStats">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Storage Usage -->
+            <div class="section">
+                <h2>📊 Storage Usage</h2>
+                <div class="storage-container">
+                    <div class="storage-item">
+                        <h4>Primary Database</h4>
+                        <div class="progress-bar">
+                            <div id="primaryProgress" class="progress-fill"></div>
+                        </div>
+                        <p id="primaryStorageText">Loading...</p>
+                    </div>
+                    <div class="storage-item">
+                        <h4>Secondary Database</h4>
+                        <div class="progress-bar">
+                            <div id="secondaryProgress" class="progress-fill"></div>
+                        </div>
+                        <p id="secondaryStorageText">Loading...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upcoming Birthdays -->
+            <div class="section">
+                <h2>🎉 Upcoming Birthdays (Next 7 Days)</h2>
+                <div id="upcomingBirthdays">Loading...</div>
+            </div>
+
+            <!-- Bot Health -->
+            <div class="section">
+                <h2>💚 Bot Health</h2>
+                <div id="botHealth">Loading...</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
