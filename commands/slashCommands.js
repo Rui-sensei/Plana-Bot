@@ -20,6 +20,10 @@ const commands = [
     ),
   new SlashCommandBuilder().setName('help').setDescription('Plana help menu'),
   new SlashCommandBuilder()
+    .setName('config')
+    .setDescription('View all bot configurations for this server')
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild),
+  new SlashCommandBuilder()
     .setName('profile')
     .setDescription('View user profile with birthday info')
     .addUserOption(opt =>

@@ -7,6 +7,7 @@ const { initBirthdays, scheduleBirthdayCheck } = require('./commands/birthday');
 const { connectDatabase }            = require('./database');
 const { connectSecondaryDatabase }   = require('./database-secondary');
 const { initPreferences }            = require('./preferences');
+const { initConfigs }                = require('./config');
 const registerMessageHandler         = require('./handlers/messages');
 const registerInteractionHandler     = require('./handlers/interactions');
 
@@ -45,6 +46,7 @@ client.once('clientReady', async () => {
   // Initialize data
   await initBirthdays();
   await initPreferences();
+  await initConfigs();
   
   scheduleBirthdayCheck(client);
 });

@@ -6,6 +6,7 @@ const { buildHelpEmbed, buildHelpRow } = require('../commands/help');
 const { runTrivia } = require('../commands/trivia');
 const { setBirthday, removeBirthday, getBirthday, setBirthdayChannel, buildProfileEmbed, MONTH_NAMES, DAYS_IN_MONTH } = require('../commands/birthday');
 const { setServerOptIn, isServerEnabled, removeUserOptIns, logAdminAction } = require('../preferences');
+const { getDatabase } = require('../database');
 
 const IMAGE_BASE = path.join(__dirname, '..', 'images');
 const COLOR_PATH = path.join(IMAGE_BASE, "Plana Colors");
@@ -108,6 +109,76 @@ module.exports = function registerInteractionHandler(client) {
     // 📖 /help
     if (interaction.commandName === "help") {
       return interaction.reply({ embeds: [buildHelpEmbed("main")], components: [buildHelpRow("main")] });
+    }
+
+    // ⚙️ /config - View all server configurations
+    if (interaction.commandName === "config") {
+      const guildId = interaction.guild.id;
+      
+      // Get birthday channel
+      const db = getDatabase();
+      let birthdayChannel = 'Not configured';
+      if (db) {
+        try {
+          const channelsCol = db.collection('birthday_channels');
+          const channelDoc = await channelsCol.findOne({ guildId });
+          if (channelDoc) {
+            birthdayChannel = `<#${channelDoc.channelId}>`;
+          }
+        } catch (err) {
+          birthdayChannel = 'Error loading';
+        }
+      }
+
+      // Get dead chat configs for this server
+      const deadChatConfigs = [];
+      for (const [channelId, config] of cfg.deadChatConfig.entries()) {
+        try {
+          const channel = await interaction.guild.channels.fetch(channelId).catch(() => null);
+          if (channel) {
+            deadChatConfigs.push(
+              `<#${channelId}>: ${config.enabled ? '✅ Enabled' : '❌ Disabled'} ` +
+              `(Warn: ${config.warning / 60000}m, Dead: ${config.dead / 60000}m)`
+            );
+          }
+        } catch (err) {
+          // Skip if channel not found
+        }
+      }
+
+      const embed = new EmbedBuilder()
+        .setTitle('⚙️ Server Configuration')
+        .setDescription(`Configuration for **${interaction.guild.name}**`)
+        .setColor(0x8A2BE2)
+        .addFields(
+          { 
+            name: '🎂 Birthday Announcements', 
+            value: `**Channel:** ${birthdayChannel}`, 
+            inline: false 
+          },
+          { 
+            name: '💀 Dead Chat Detection', 
+            value: deadChatConfigs.length > 0 
+              ? deadChatConfigs.join('\n') 
+              : 'No channels configured', 
+            inline: false 
+          },
+          { 
+            name: '🔵 Mention Config (Global)', 
+            value: `**Threshold:** ${cfg.mentionConfig.threshold} mentions\n` +
+                   `**Cooldown:** ${cfg.mentionConfig.cooldown} minute(s)`, 
+            inline: true 
+          },
+          { 
+            name: '🎲 Random Command (Global)', 
+            value: `**Message:** ${cfg.randomConfig.default}`, 
+            inline: true 
+          }
+        )
+        .setFooter({ text: 'Use /plana commands to change these settings' })
+        .setTimestamp();
+
+      return interaction.reply({ embeds: [embed], flags: 64 });
     }
 
     // 👤 /profile
