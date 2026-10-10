@@ -278,7 +278,7 @@ module.exports = function registerInteractionHandler(client) {
         }
         if (threshold) cfg.mentionConfig.threshold = threshold;
         if (cooldown)  cfg.mentionConfig.cooldown  = cooldown;
-        cfg.saveConfig();
+        await cfg.saveConfig();
         return interaction.reply({ content: `✅ Mention config updated:\n• **Threshold:** ${cfg.mentionConfig.threshold} mentions\n• **Cooldown:** ${cfg.mentionConfig.cooldown} minute(s)`, flags: 64 });
       }
 
@@ -287,13 +287,13 @@ module.exports = function registerInteractionHandler(client) {
         const newDefault = interaction.options.getString('default');
         if (!newDefault) return interaction.reply({ content: `📋 Current random config:\n• **Default message:** ${cfg.randomConfig.default}`, flags: 64 });
         cfg.randomConfig.default = newDefault;
-        cfg.saveConfig();
+        await cfg.saveConfig();
         return interaction.reply({ content: `✅ Random config updated:\n• **Default message:** ${cfg.randomConfig.default}`, flags: 64 });
       }
 
       // ⚙️ /plana config reset
       if (group === "config" && sub === "reset") {
-        cfg.resetConfig();
+        await cfg.resetConfig();
         return interaction.reply({ content: "✅ All bot configuration has been reset to defaults.", flags: 64 });
       }
 
@@ -316,7 +316,7 @@ module.exports = function registerInteractionHandler(client) {
           warned:      false,
           deadSent:    false
         });
-        cfg.saveConfig();
+        await cfg.saveConfig();
 
         return interaction.reply({
           content: `✅ Dead chat configured for <#${channel.id}>\n• **Enabled:** ${enabled}\n• **Warning:** after ${warnMins} minute(s)\n• **Dead:** after ${deadMins} minute(s)`,
